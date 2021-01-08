@@ -135,6 +135,12 @@ jobs:
         GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       if: matrix.os == 'ubuntu-18.04'
 
+    - name: Debug GPG
+      run: |
+        gpg --list-keys
+        gpg --list-secret-keys
+      if: matrix.os == 'ubuntu-18.04'
+
     - name: Signing files
       run: |
         echo $GPG_PASSPHRASE | gpg --pinentry-mode loopback --batch --passphrase-fd 0 --armor --detach-sign --default-key contact@iota.org trinity-desktop*.AppImage
